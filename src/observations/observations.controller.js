@@ -1,6 +1,8 @@
 let nextId = 1;
 const observations = []
 const service = require("./observations.service");
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
+
 
 const validSkyConditions = [100, 101, 102, 103, 104, 106, 108, 109]
 
@@ -52,6 +54,6 @@ async function list(req, res) {
 }
 
 module.exports = {
-  create: [hasData, hasLatitude, hasLongitude, hasSkyCondition, create],
-  list
+  create: [hasData, hasLatitude, hasLongitude, hasSkyCondition, asyncErrorBoundary(create)],
+ list
 };
